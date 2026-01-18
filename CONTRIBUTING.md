@@ -1,17 +1,11 @@
 # Contributing to HACP
 
-Thank you for your interest in contributing to the Human-Agent Collaboration Protocol (HACP). This repository contains the public core schemas, specifications, and reference implementations.
+We welcome contributions. Please follow:
 
-## Getting Started
+- Fork the repo and open a PR against `main`
+- Use conventional commit messages (type(scope): short)
+- Add tests or SHACL proof for any new shapes
+- Keep changes backwards compatible for v0.x where possible
+- All non-trivial changes require at least 2 approvers
 
-1. Clone the repository.
-2. Install dependencies (poetry/uv recommended).
-3. Run tests: `make test`
-
-## Code of Conduct
-
-Please adhere to our Code of Conduct in all interactions.
-
-## License
-
-By contributing, you agree that your contributions will be licensed under the Apache 2.0 License.
+License: Apache 2.0

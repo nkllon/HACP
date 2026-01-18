@@ -1,0 +1,12 @@
+@prefix : <http://nkllon.org/hacp#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:ImmutableAuditShape a sh:NodeShape ;
+    sh:targetClass :AuditRecord ;
+    sh:message "Audit records must be present and immutable for HACP-2." ;
+    sh:property [
+        sh:path :auditId ; sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path :timestamp ; sh:minCount 1 ;
+    ] .

@@ -1,0 +1,36 @@
+# YAML schema (human-readable) for Task Manifest
+title: HACP Task Manifest
+type: object
+required:
+  - id
+  - importance
+  - complexity
+  - reversibility
+  - owner
+properties:
+  id:
+    type: string
+    description: Unique task identifier
+  importance:
+    type: string
+    enum: [Low, High]
+  complexity:
+    type: string
+    enum: [Low, High]
+  reversibility:
+    type: string
+    enum: [Reversible, Irreversible]
+  owner:
+    type: string
+    description: Human owner identifier (email or org id)
+  operator:
+    type: string
+    description: Person initiating task
+  allowed_ai_roles:
+    type: array
+    items:
+      type: string
+      enum: [Proposer, Executor, Critic, Observer]
+  description:
+    type: string
+    description: Human readable summary

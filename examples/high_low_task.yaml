@@ -1,0 +1,37 @@
+task:
+  id: deploy-config-042
+  importance: High
+  complexity: Low
+  reversibility: Reversible
+  owner: alice@org
+  operator: bob@org
+  allowed_ai_roles:
+    - Proposer
+    - Executor
+  description: "Deploy configuration change to production"
+agent:
+  id: config-ai
+  roles:
+    - Proposer
+    - Executor
+  prohibited_actions:
+    - irreversible_actions
+  confidence_threshold: 0.85
+output_proposal:
+  role: Proposer
+  type: proposal
+  confidence: 0.92
+  summary: "Update config X to value Y"
+  risks:
+    - "service restart required"
+  escalation:
+    required_if_confidence_below: 0.85
+approval:
+  reviewer: bob@org
+  decision: approved
+  timestamp: 2026-01-16T12:41:00Z
+execution:
+  role: Executor
+  type: execution
+  confirmation: success
+  audit_ref: log://deploy-config-042

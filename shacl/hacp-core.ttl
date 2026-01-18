@@ -1,0 +1,56 @@
+@prefix : <http://nkllon.org/hacp#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+# Core HACP SHACL shapes (v0.1)
+#################################################################
+
+:TaskManifestShape a sh:NodeShape ;
+    sh:targetClass :TaskManifest ;
+    sh:message "Task manifest must include importance, complexity, reversibility and owner." ;
+    sh:property [
+        sh:path :importance ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path :complexity ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path :reversibility ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path :owner ;
+        sh:minCount 1 ;
+    ] .
+
+:RoleDeclarationShape a sh:NodeShape ;
+    sh:targetClass :RoleDeclaration ;
+    sh:message "Agents must declare roles and confidence thresholds." ;
+    sh:property [
+        sh:path :agentId ; sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path :roles ; sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path :confidenceThreshold ; sh:minCount 1 ;
+    ] .
+
+:AuthorityBoundaryShape a sh:NodeShape ;
+    sh:targetClass :Execution ;
+    sh:message "Execution of irreversible actions requires explicit human approval." ;
+    sh:property [
+        sh:path :reversibility ;
+        sh:hasValue "Irreversible"^^xsd:string ;
+        sh:severity sh:Violation ;
+    ] ;
+    sh:property [
+        sh:path :humanApproval ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+    ] .

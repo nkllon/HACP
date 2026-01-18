@@ -1,12 +1,22 @@
-# HACP (Human-Agent Collaboration Protocol)
+# Human–AI Collaboration Protocol (HACP)
 
-HACP is the canonical public protocol: schemas, normative spec, and reference implementation. It defines the Task Manifest, Role & Capability Declaration, and Decision Envelope that all HACP-compatible systems must implement. The core is Apache 2.0 and intended to be the neutral substrate for interoperability.
+**HACP** (v0.1) is a minimal, vendor-neutral protocol and reference implementation for safe, auditable, and productive collaboration between humans and high-capability AI systems.
 
-## Repository Structure
+This repository contains:
 
-* `packages/hacp-schema`: Python reference implementation of the HACP schemas.
-* `spec`: Normative specifications (coming soon).
+- the normative spec (`HACP.md`)
+- schemas and SHACL shapes for compliance testing
+- a canonical reference mapping to the "Beast" implementation
+- examples and a pilot plan for non-classified lab testing
+
+Goal: make the protocol real and executable so that institutions and vendors can interoperate — without surrendering human authority.
+
+## Quick start
+
+1. Read the normative spec: `HACP.md`
+2. Inspect the schema: `schemas/task-manifest.yaml`
+3. Validate an example with SHACL (CI job included): See `.github/workflows/validate-shacl.yml`
 
 ## License
 
-Apache 2.0
+Apache 2.0 — see LICENSE

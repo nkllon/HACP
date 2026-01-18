@@ -1,0 +1,30 @@
+title: HACP Role Declaration
+type: object
+required:
+  - agent_id
+  - roles
+properties:
+  agent_id:
+    type: string
+    description: Unique agent identifier
+  roles:
+    type: array
+    items:
+      type: string
+      enum: [Proposer, Executor, Critic, Observer]
+  prohibited_actions:
+    type: array
+    items: { type: string }
+  confidence_threshold:
+    type: number
+    minimum: 0.0
+    maximum: 1.0
+  refusal_conditions:
+    type: array
+    items:
+      type: object
+      properties:
+        condition:
+          type: string
+        action:
+          type: string

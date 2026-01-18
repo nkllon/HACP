@@ -1,0 +1,16 @@
+@prefix : <http://nkllon.org/hacp#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:HighImportanceHighComplexityShape a sh:NodeShape ;
+    sh:targetClass :TaskManifest ;
+    sh:message "High importance & high complexity tasks must be Human-Led & AI-Enhanced." ;
+    sh:filterShape [
+        sh:property [ sh:path :importance; sh:hasValue "High" ] ;
+        sh:property [ sh:path :complexity; sh:hasValue "High" ] 
+    ] ;
+    sh:property [
+        sh:path :collaborationModeUsed ;
+        sh:hasValue :HumanLedAIEnhanced ;
+        sh:severity sh:Violation ;
+    ] .
