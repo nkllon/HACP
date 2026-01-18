@@ -1,0 +1,13 @@
+[project]
+name = "hacp-schema"
+version = "0.1.0"
+description = "Reference implementation of HACP schemas"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic>=2.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
