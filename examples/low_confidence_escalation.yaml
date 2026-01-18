@@ -1,0 +1,13 @@
+task_id: "medical-diagnosis-assist"
+events:
+  - type: "Proposal"
+    timestamp: "2023-10-27T10:00:00Z"
+    confidence: 0.45
+    source: "AiMediBot-v1"
+    details:
+      diagnosis: "Rare Condition X"
+  - type: "Escalation"
+    timestamp: "2023-10-27T10:00:01Z"
+    source: "AiMediBot-v1"
+    reason: "Confidence 0.45 below threshold 0.80"
+    target: "Human-Specialist"

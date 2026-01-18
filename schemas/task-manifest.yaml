@@ -20,9 +20,22 @@ properties:
   reversibility:
     type: string
     enum: [Reversible, Irreversible]
+  collaboration_mode:
+    type: string
+    enum: [AI-Led, Human-Led, Collaborative]
+    default: Human-Led
+  deadline:
+    type: string
+    format: date-time
+    description: Optional execution deadline.
+  context:
+    type: array
+    description: List of dependencies or background documents.
+    items:
+      type: string
   owner:
     type: string
-    description: Human owner identifier (email or org id)
+    description: Human ID responsible for the task.il or org id)
   operator:
     type: string
     description: Person initiating task

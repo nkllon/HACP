@@ -19,6 +19,16 @@ Every task MUST be classified before execution along these axes:
 - **Complexity**: Low / High
 - **Reversibility**: Reversible / Irreversible
 
+### 3.1 Classification Decision Matrix
+
+| Importance | Complexity | Reversibility | Default Mode |
+|------------|------------|---------------|--------------|
+| Low        | Low        | Reversible    | AI-Led, Human-Monitored |
+| Low        | Low        | Irreversible  | Human-Led, AI-Assisted |
+| Low        | High       | Reversible    | Human-Led, AI-Enhanced |
+| High       | *          | *             | Human-Led, AI-Enhanced |
+| *          | *          | Irreversible  | Requires explicit approval |
+
 Unclassified tasks MUST default to **Human-Led, AI-Assisted** handling. Silent delegation is prohibited.
 
 ## 4. Roles
@@ -44,8 +54,8 @@ AI systems:
 
 - MAY propose recommendations
 - MAY execute actions **only when explicitly authorized**
-- MUST refuse actions outside declared capability
-- MUST escalate when confidence is insufficient
+- MUST refuse actions outside declared capability by returning a `Refusal` event with reason code.
+- MUST escalate when confidence is insufficient using an `Escalation` event.
 
 AI systems:
 
@@ -70,7 +80,7 @@ HACP-compliant systems MUST produce an auditable record including:
 
 - task classification
 - role assignments
-- model identity
+- model identity (schema compliant: name, version, hash)
 - decision path
 - approval checkpoints
 

@@ -1,0 +1,5 @@
+task_id: "rogue-deployment"
+importance: "High"
+reversibility: "Irreversible"
+# Missing owner
+# Missing complexity

@@ -1,0 +1,17 @@
+task_id: "marketing-campaign-gen"
+collaboration_mode: "Collaborative"
+roles:
+  - agent: "CopyAI"
+    role: "Proposer"
+  - agent: "LegalAI"
+    role: "Critic"
+events:
+  - type: "Proposal"
+    source: "CopyAI"
+    details: "Draft copy..."
+  - type: "Review"
+    source: "LegalAI"
+    details: "Flag: trademark risk"
+  - type: "Handoff"
+    from: "LegalAI"
+    to: "Human-Editor"

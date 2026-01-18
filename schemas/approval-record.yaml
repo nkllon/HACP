@@ -1,0 +1,35 @@
+%YAML 1.2
+---
+# HACP Approval Record Schema
+$schema: http://json-schema.org/draft-07/schema#
+title: Approval Record
+description: Record of a human authorization decision.
+type: object
+required:
+  - approval_id
+  - target_action_id
+  - approver_id
+  - decision
+  - timestamp
+properties:
+  approval_id:
+    type: string
+    description: Unique ID for this approval event.
+  target_action_id:
+    type: string
+    description: ID of the proposed action or plan being approved.
+  approver_id:
+    type: string
+    description: ID of the human authorized to approve.
+  decision:
+    type: string
+    enum: [Approved, Rejected, ModificationsRequired]
+  timestamp:
+    type: string
+    format: date-time
+  comments:
+    type: string
+    description: Reasoning or conditions for the decision.
+  signature:
+    type: string
+    description: Digital signature or cryptographic proof of identity (optional).

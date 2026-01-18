@@ -1,0 +1,8 @@
+@prefix : <http://nkllon.org/hacp#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:rogue-deployment a :TaskManifest ;
+    :importance "High" ;
+    :reversibility "Irreversible" .
+    # Fails: Missing complexity
+    # Fails: Missing owner

@@ -1,0 +1,16 @@
+@prefix : <http://nkllon.org/hacp#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:db-cleanup-001 a :TaskManifest ;
+    :importance "High" ;
+    :complexity "High" ;
+    :reversibility "Irreversible" ;
+    :owner "database-admin-team" .
+
+:cleanup-execution a :Execution ;
+    :reversibility "Irreversible" ;
+    :humanApproval :approval-sig-8822 .
+
+:approval-sig-8822 a :Approval ;
+    :approverId "db-admin-alice" ;
+    :decision "Approved" .

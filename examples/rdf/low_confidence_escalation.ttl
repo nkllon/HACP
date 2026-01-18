@@ -1,0 +1,7 @@
+@prefix : <http://nkllon.org/hacp#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:medical-decision a :DecisionEnvelope ;
+    :confidence 0.45 ;
+    :confidenceThreshold 0.80 ;
+    :escalatedTo "Dr. Smith" .

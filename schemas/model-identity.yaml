@@ -1,0 +1,27 @@
+%YAML 1.2
+---
+# HACP Model Identity Schema
+$schema: http://json-schema.org/draft-07/schema#
+title: Model Identity
+description: Identification details for an AI system.
+type: object
+required:
+  - model_name
+  - version
+properties:
+  model_name:
+    type: string
+    description: Human-readable name of the model (e.g., "DeepSeek-V3", "GPT-4o").
+  version:
+    type: string
+    description: Specific version string or date.
+  provider:
+    type: string
+    description: Vendor or organization providing the model.
+  hash:
+    type: string
+    description: Checksum or hash of the model weights/deployment (for strict reproducibility).
+  uri:
+    type: string
+    format: uri
+    description: Canonical URI for the model definition.

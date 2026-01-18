@@ -1,0 +1,12 @@
+task_id: "db-cleanup-001"
+title: "Production Database Cleanup"
+intent: "Remove interpolated data rows older than 3 years."
+importance: "High"
+complexity: "High"
+reversibility: "Irreversible"
+collaboration_mode: "Human-Led"
+owner: "database-admin-team"
+deadline: "2023-12-31T23:59:59Z"
+context:
+  - "policy:retention-policy-v2"
+  - "ticket:JIRA-1234"

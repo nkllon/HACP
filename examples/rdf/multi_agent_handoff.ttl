@@ -1,0 +1,12 @@
+@prefix : <http://nkllon.org/hacp#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:copy-agent a :RoleDeclaration ;
+    :agentId "CopyAI" ;
+    :roles "Proposer" ;
+    :confidenceThreshold 0.7 .
+
+:legal-agent a :RoleDeclaration ;
+    :agentId "LegalAI" ;
+    :roles "Critic" ;
+    :confidenceThreshold 0.9 .

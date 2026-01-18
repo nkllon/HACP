@@ -54,3 +54,44 @@
         sh:minCount 1 ;
         sh:severity sh:Violation ;
     ] .
+
+:EscalationOnUncertaintyShape a sh:NodeShape ;
+    sh:targetClass :DecisionEnvelope ;
+    sh:message "AI must escalate when confidence is below threshold." ;
+    sh:sparql [
+        sh:select """
+            SELECT $this WHERE {
+                $this :confidence ?conf .
+                $this :confidenceThreshold ?thresh .
+                FILTER(?conf < ?thresh && NOT EXISTS { $this :escalatedTo ?human })
+            }
+        """ ;
+    ] .
+
+:AuditRecordShape a sh:NodeShape ;
+    sh:targetClass :AuditRecord ;
+    sh:message "Audit records must be complete." ;
+    sh:property [
+        sh:path :taskId ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path :events ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path :finalStatus ;
+        sh:minCount 1 ;
+    ] .
+
+:ModelIdentityShape a sh:NodeShape ;
+    sh:targetClass :ModelIdentity ;
+    sh:message "Model identity requires name and version." ;
+    sh:property [
+        sh:path :modelName ;
+        sh:minCount 1 ;
+    ] ;
+    sh:property [
+        sh:path :version ;
+        sh:minCount 1 ;
+    ] .
