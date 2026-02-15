@@ -44,15 +44,14 @@
 :AuthorityBoundaryShape a sh:NodeShape ;
     sh:targetClass :Execution ;
     sh:message "Execution of irreversible actions requires explicit human approval." ;
-    sh:property [
-        sh:path :reversibility ;
-        sh:hasValue "Irreversible"^^xsd:string ;
-        sh:severity sh:Violation ;
-    ] ;
-    sh:property [
-        sh:path :humanApproval ;
-        sh:minCount 1 ;
-        sh:severity sh:Violation ;
+    sh:sparql [
+        sh:message "Execution with reversibility=Irreversible MUST include humanApproval." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this :reversibility ?rev .
+                FILTER(str(?rev) = "Irreversible" && NOT EXISTS { $this :humanApproval ?approval })
+            }
+        """ ;
     ] .
 
 :EscalationOnUncertaintyShape a sh:NodeShape ;

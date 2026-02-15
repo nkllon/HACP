@@ -36,6 +36,12 @@ properties:
   owner:
     type: string
     description: Human ID responsible for the task.il or org id)
+  team_id:
+    type: string
+    description: Team identifier used to resolve culture and decision-rights context.
+  culture_profile_ref:
+    type: string
+    description: URI or file reference to the associated Culture Profile artifact.
   operator:
     type: string
     description: Person initiating task

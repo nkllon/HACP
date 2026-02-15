@@ -24,9 +24,29 @@ jobs:
           
       - name: Validate examples with SHACL
         run: |
-          # We check if there are any .ttl files in examples/rdf to validate
-          if ls examples/rdf/*.ttl 1> /dev/null 2>&1; then
-            python scripts/validate_rdf.py examples/rdf/*.ttl --shapes shacl/hacp-core.ttl
-          else
+          if ! ls examples/rdf/*.ttl 1> /dev/null 2>&1; then
             echo "No RDF examples found to validate."
+            exit 0
+          fi
+
+          positive_examples=(
+            examples/rdf/irreversible_task.ttl
+            examples/rdf/low_confidence_escalation.ttl
+            examples/rdf/multi_agent_handoff.ttl
+          )
+          positive_culture_examples=(
+            examples/rdf/culture_profile.ttl
+          )
+          negative_examples=(
+            examples/rdf/failed_validation.ttl
+          )
+
+          python scripts/validate_rdf.py "${positive_examples[@]}" --shapes shacl/hacp-core.ttl
+          python scripts/validate_rdf.py "${positive_culture_examples[@]}" --shapes shacl/culture-profile.shacl.ttl
+
+          if python scripts/validate_rdf.py "${negative_examples[@]}" --shapes shacl/hacp-core.ttl; then
+            echo "Expected SHACL failure for negative fixtures, but validation passed."
+            exit 1
+          else
+            echo "Negative fixtures failed core SHACL as expected."
           fi

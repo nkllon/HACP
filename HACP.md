@@ -31,6 +31,11 @@ Every task MUST be classified before execution along these axes:
 
 Unclassified tasks MUST default to **Human-Led, AI-Assisted** handling. Silent delegation is prohibited.
 
+### 3.2 Culture Policy Binding
+
+Teams MAY publish a Culture Profile artifact that defines decision-rights model, dissent channels, and risk policy tiers.  
+For tasks where `importance=High` OR `reversibility=Irreversible`, collaboration **MUST** apply the matching Culture Profile `risk_policy` tier rules, including `requires_divergence` when that flag is set.
+
 ## 4. Roles
 
 ### 4.1 Human Roles

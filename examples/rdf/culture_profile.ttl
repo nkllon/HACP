@@ -1,0 +1,25 @@
+@prefix : <http://nkllon.org/hacp#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:team-alpha-culture a :CultureProfile ;
+    :teamId "team-alpha" ;
+    :decisionRightsModel "RACI" ;
+    :hasDissentChannel :minority-report ;
+    :hasRiskPolicy :team-alpha-risk-policy .
+
+:minority-report a :DissentChannel ;
+    :channelName "Minority Report" ;
+    :preservesDissent true .
+
+:team-alpha-risk-policy a :RiskPolicy ;
+    :hasRiskTier :risk-tier-low, :risk-tier-high .
+
+:risk-tier-low a :RiskTier ;
+    :tierName "low" ;
+    :requiresDivergence false ;
+    :requiresAuditTrail true .
+
+:risk-tier-high a :RiskTier ;
+    :tierName "high" ;
+    :requiresDivergence true ;
+    :requiresAuditTrail true .
