@@ -12,14 +12,14 @@ def validate_file(data_file, shape_file):
         data_graph.parse(data_file, format="turtle")
     except Exception as e:
         print(f"Error parsing data file {data_file}: {e}")
-        return False
+        return None
 
     shacl_graph = Graph()
     try:
         shacl_graph.parse(shape_file, format="turtle")
     except Exception as e:
         print(f"Error parsing shape file {shape_file}: {e}")
-        return False
+        return None
 
     conforms, results_graph, results_text = validate(
         data_graph,
@@ -46,10 +46,16 @@ def main():
     args = parser.parse_args()
     
     failures = 0
+    errors = 0
     for data_file in args.data_files:
-        if not validate_file(data_file, args.shapes):
+        result = validate_file(data_file, args.shapes)
+        if result is None:
+            errors += 1
+        elif result is False:
             failures += 1
     
+    if errors > 0:
+        sys.exit(2)
     if failures > 0:
         sys.exit(1)
     else:

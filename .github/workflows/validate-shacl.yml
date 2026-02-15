@@ -44,9 +44,17 @@ jobs:
           python scripts/validate_rdf.py "${positive_examples[@]}" --shapes shacl/hacp-core.ttl
           python scripts/validate_rdf.py "${positive_culture_examples[@]}" --shapes shacl/culture-profile.shacl.ttl
 
-          if python scripts/validate_rdf.py "${negative_examples[@]}" --shapes shacl/hacp-core.ttl; then
+          set +e
+          python scripts/validate_rdf.py "${negative_examples[@]}" --shapes shacl/hacp-core.ttl
+          status=$?
+          set -e
+
+          if [ "$status" -eq 0 ]; then
             echo "Expected SHACL failure for negative fixtures, but validation passed."
             exit 1
-          else
+          elif [ "$status" -eq 1 ]; then
             echo "Negative fixtures failed core SHACL as expected."
+          else
+            echo "Negative fixtures validation errored (exit $status)."
+            exit "$status"
           fi
