@@ -1,0 +1,76 @@
+@prefix : <http://nkllon.org/hacp#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:CultureProfileShape
+    a sh:NodeShape ;
+    sh:targetClass :CultureProfile ;
+    sh:property [
+        sh:path :teamId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:message "CultureProfile MUST declare teamId." ;
+    ] ;
+    sh:property [
+        sh:path :decisionRightsModel ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:message "CultureProfile MUST declare decisionRightsModel." ;
+    ] ;
+    sh:property [
+        sh:path :hasDissentChannel ;
+        sh:minCount 1 ;
+        sh:message "CultureProfile MUST declare at least one dissent channel." ;
+    ] ;
+    sh:property [
+        sh:path :hasRiskPolicy ;
+        sh:minCount 1 ;
+        sh:message "CultureProfile MUST declare a risk policy." ;
+    ] .
+
+:RiskPolicyShape
+    a sh:NodeShape ;
+    sh:targetClass :RiskPolicy ;
+    sh:property [
+        sh:path :hasRiskTier ;
+        sh:minCount 2 ;
+        sh:message "RiskPolicy MUST define at least two risk tiers." ;
+    ] .
+
+:RiskTierShape
+    a sh:NodeShape ;
+    sh:targetClass :RiskTier ;
+    sh:property [
+        sh:path :tierName ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:message "RiskTier MUST have tierName." ;
+    ] ;
+    sh:property [
+        sh:path :requiresDivergence ;
+        sh:datatype xsd:boolean ;
+        sh:minCount 1 ;
+        sh:message "RiskTier MUST specify requiresDivergence (true/false)." ;
+    ] ;
+    sh:property [
+        sh:path :requiresAuditTrail ;
+        sh:datatype xsd:boolean ;
+        sh:minCount 1 ;
+        sh:message "RiskTier MUST specify requiresAuditTrail (true/false)." ;
+    ] .
+
+:DissentChannelShape
+    a sh:NodeShape ;
+    sh:targetClass :DissentChannel ;
+    sh:property [
+        sh:path :channelName ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:message "DissentChannel MUST have channelName." ;
+    ] ;
+    sh:property [
+        sh:path :preservesDissent ;
+        sh:datatype xsd:boolean ;
+        sh:minCount 1 ;
+        sh:message "DissentChannel MUST specify preservesDissent (true/false)." ;
+    ] .

@@ -1,0 +1,118 @@
+# YAML schema (human-readable) for Culture Profile
+title: HACP Culture Profile
+type: object
+required:
+  - team_id
+  - decision_rights_model
+  - dissent_channels
+  - risk_policy
+
+properties:
+  team_id:
+    type: string
+    description: Unique team identifier (maps to Team entity in higher-level models).
+
+  decision_rights_model:
+    type: string
+    enum: [RACI, DACI, RAPID, Bespoke]
+    description: Team decision-rights topology.
+
+  dissent_channels:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      required: [name, preserves_dissent]
+      properties:
+        name:
+          type: string
+          description: Human name for the dissent channel.
+        preserves_dissent:
+          type: boolean
+          description: If true, dissent must be durably recorded and linkable to a decision artifact.
+        anonymous:
+          type: boolean
+          default: false
+          description: If true, this channel supports anonymous dissent.
+
+  risk_policy:
+    type: object
+    required: [tiers]
+    properties:
+      tiers:
+        type: array
+        minItems: 2
+        items:
+          type: object
+          required: [name, requires_divergence, requires_audit_trail]
+          properties:
+            name:
+              type: string
+              description: "Tier name (for example: low/high or 1-4)."
+            requires_divergence:
+              type: boolean
+              description: If true, divergence-before-convergence is mandatory at this tier.
+            requires_minority_report:
+              type: boolean
+              default: false
+            requires_second_order_effects:
+              type: boolean
+              default: false
+            requires_audit_trail:
+              type: boolean
+              description: If true, decisions must preserve an auditable rationale chain.
+            escalation_required:
+              type: boolean
+              default: false
+              description: If true, explicit escalation to a defined authority group is required.
+
+  norms:
+    type: array
+    description: Explicit team norms (communication/decision/learning).
+    items:
+      type: object
+      required: [name, type]
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum: [communication, decision, review, learning, safety, execution]
+
+  incentives:
+    type: array
+    description: Explicit or implicit incentive signals that affect decision dynamics.
+    items:
+      type: object
+      required: [name, polarity]
+      properties:
+        name:
+          type: string
+        polarity:
+          type: string
+          enum: [reward, penalty, mixed]
+
+  rituals:
+    type: array
+    description: Team cadences (retro, design review, incident review, weekly planning).
+    items:
+      type: object
+      required: [name, cadence]
+      properties:
+        name:
+          type: string
+        cadence:
+          type: string
+          description: Example values include weekly, biweekly, monthly, or per-incident.
+
+  metrics:
+    type: array
+    description: Aggregate and non-personal signals used to operationalize culture.
+    items:
+      type: object
+      required: [name, description]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
