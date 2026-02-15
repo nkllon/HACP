@@ -34,12 +34,15 @@ jobs:
             examples/rdf/low_confidence_escalation.ttl
             examples/rdf/multi_agent_handoff.ttl
           )
+          positive_culture_examples=(
+            examples/rdf/culture_profile.ttl
+          )
           negative_examples=(
             examples/rdf/failed_validation.ttl
           )
 
           python scripts/validate_rdf.py "${positive_examples[@]}" --shapes shacl/hacp-core.ttl
-          python scripts/validate_rdf.py "${positive_examples[@]}" --shapes shacl/culture-profile.shacl.ttl
+          python scripts/validate_rdf.py "${positive_culture_examples[@]}" --shapes shacl/culture-profile.shacl.ttl
 
           if python scripts/validate_rdf.py "${negative_examples[@]}" --shapes shacl/hacp-core.ttl; then
             echo "Expected SHACL failure for negative fixtures, but validation passed."

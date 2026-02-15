@@ -1,0 +1,32 @@
+team_id: "team-alpha"
+decision_rights_model: "RACI"
+dissent_channels:
+  - name: "Minority Report"
+    preserves_dissent: true
+    anonymous: false
+risk_policy:
+  tiers:
+    - name: "low"
+      requires_divergence: false
+      requires_minority_report: false
+      requires_second_order_effects: false
+      requires_audit_trail: true
+      escalation_required: false
+    - name: "high"
+      requires_divergence: true
+      requires_minority_report: true
+      requires_second_order_effects: true
+      requires_audit_trail: true
+      escalation_required: true
+norms:
+  - name: "Disagree in writing before commit"
+    type: "decision"
+incentives:
+  - name: "Escalate uncertainty early"
+    polarity: "reward"
+rituals:
+  - name: "Incident Review"
+    cadence: "per-incident"
+metrics:
+  - name: "Escalation Lead Time"
+    description: "Median time from uncertainty detection to human escalation."

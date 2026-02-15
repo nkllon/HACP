@@ -18,6 +18,9 @@
 
 See `shacl/*.ttl` — each test is encoded as a SHACL NodeShape. Run `pyshacl` (CI job included) against examples to verify compliance.
 
+- Core controls: `shacl/hacp-core.ttl`
+- Culture controls: `shacl/culture-profile.shacl.ttl`
+
 ## Compliance Claim Format
 
 Systems claiming compliance should publish a short YAML claim, for example:

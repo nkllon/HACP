@@ -14,8 +14,11 @@ Goal: make the protocol real and executable so that institutions and vendors can
 ## Quick start
 
 1. Read the normative spec: `HACP.md`
-2. Inspect the schema: `schemas/task-manifest.yaml`
-3. Validate an example with SHACL (CI job included): See `.github/workflows/validate-shacl.yml`
+2. Inspect the schemas: `schemas/task-manifest.yaml` and `schemas/culture-profile.yaml`
+3. Validate examples with SHACL (CI job included): See `.github/workflows/validate-shacl.yml`
+4. Review reference fixtures:
+   - Task fixtures: `examples/rdf/irreversible_task.ttl`, `examples/rdf/low_confidence_escalation.ttl`
+   - Culture fixture: `examples/rdf/culture_profile.ttl`
 
 ## License
 
