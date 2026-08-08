@@ -1,0 +1,24 @@
+@prefix : <http://nkllon.org/hacp#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:HacpCoreExtractionActivity20260807 a prov:Activity ;
+    rdfs:label "HACP core vocabulary extraction, 2026-08-07"@en ;
+    dcterms:description "Extracted 7 classes and 12 properties from energration/patents active/hacp-protocol/hacp.ttl into ontology/hacp-core.ttl, preserving each term's rdfs:label and rdfs:comment verbatim. Excluded: the pat:PatentCandidate root individual, all Claim* and ClaimElement* individuals, all Risk/NoveltyHypothesis/PriorArtReference/TechnicalEmbodiment/PatentArtifact individuals, all specific role/boundary/gate instances (e.g. AIAgentExecutorRole, IrreversibleActionBoundary, ConfidenceThresholdGate), and all pat:*/lim:* properties. These remain in the patent repository as specializations, not part of the neutral protocol vocabulary."@en ;
+    prov:generated [ prov:specializationOf :AuditEvidence ;
+            prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ],
+        [ prov:specializationOf :ValidationLoop ;
+            prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ],
+        [ prov:specializationOf :DelegationBoundary ;
+            prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ],
+        [ prov:specializationOf :ProtocolRole ;
+            prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ],
+        [ prov:specializationOf :EnforcementPoint ;
+            prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ],
+        [ prov:specializationOf :AuthorityBoundary ;
+            prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ],
+        [ prov:specializationOf :TaskEnvelope ;
+            prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ] ;
+    prov:used <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+

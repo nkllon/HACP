@@ -1,0 +1,33 @@
+@prefix : <http://nkllon.org/hacp#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ClassDocumentationShape a sh:NodeShape ;
+    sh:message "Every owl:Class in the HACP core vocabulary must have exactly one rdfs:label and at least one rdfs:comment." ;
+    sh:property [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path rdfs:label ],
+        [ sh:minCount 1 ;
+            sh:path rdfs:comment ] ;
+    sh:targetClass owl:Class .
+
+:DatatypePropertyDocumentationShape a sh:NodeShape ;
+    sh:message "Every owl:DatatypeProperty must have exactly one rdfs:label and at least one rdfs:comment." ;
+    sh:property [ sh:minCount 1 ;
+            sh:path rdfs:comment ],
+        [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path rdfs:label ] ;
+    sh:targetClass owl:DatatypeProperty .
+
+:ObjectPropertyDocumentationShape a sh:NodeShape ;
+    sh:message "Every owl:ObjectProperty must have exactly one rdfs:label and at least one rdfs:comment." ;
+    sh:property [ sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path rdfs:label ],
+        [ sh:minCount 1 ;
+            sh:path rdfs:comment ] ;
+    sh:targetClass owl:ObjectProperty .
+

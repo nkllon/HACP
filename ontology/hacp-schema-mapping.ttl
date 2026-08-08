@@ -1,0 +1,171 @@
+@prefix : <http://nkllon.org/hacp#> .
+@prefix map: <http://nkllon.org/hacp/mapping#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+map:correspondsToClass a owl:AnnotationProperty ;
+    rdfs:label "corresponds to class"@en .
+
+map:correspondsToProperty a owl:AnnotationProperty ;
+    rdfs:label "corresponds to property"@en .
+
+map:mapping-000 a map:SchemaMapping ;
+    map:correspondsToClass :TaskManifest ;
+    map:correspondsToProperty :importance ;
+    map:sourceField "importance" ;
+    map:sourceFile "schemas/task-manifest.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-001 a map:SchemaMapping ;
+    map:correspondsToClass :TaskManifest ;
+    map:correspondsToProperty :complexity ;
+    map:sourceField "complexity" ;
+    map:sourceFile "schemas/task-manifest.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-002 a map:SchemaMapping ;
+    map:correspondsToClass :TaskManifest ;
+    map:correspondsToProperty :reversibility ;
+    map:sourceField "reversibility" ;
+    map:sourceFile "schemas/task-manifest.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-003 a map:SchemaMapping ;
+    map:correspondsToClass :TaskManifest ;
+    map:correspondsToProperty :owner ;
+    map:sourceField "owner" ;
+    map:sourceFile "schemas/task-manifest.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-004 a map:SchemaMapping ;
+    map:correspondsToClass :TaskManifest ;
+    map:correspondsToProperty :operator ;
+    map:sourceField "operator" ;
+    map:sourceFile "schemas/task-manifest.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-005 a map:SchemaMapping ;
+    map:correspondsToClass :TaskManifest ;
+    map:correspondsToProperty :collaborationModeUsed ;
+    map:sourceField "collaboration_mode" ;
+    map:sourceFile "schemas/task-manifest.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-006 a map:SchemaMapping ;
+    map:correspondsToClass :RoleDeclaration ;
+    map:correspondsToProperty :agentId ;
+    map:sourceField "agent_id" ;
+    map:sourceFile "schemas/role-declaration.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-007 a map:SchemaMapping ;
+    map:correspondsToClass :RoleDeclaration ;
+    map:correspondsToProperty :roles ;
+    map:sourceField "roles" ;
+    map:sourceFile "schemas/role-declaration.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-008 a map:SchemaMapping ;
+    map:correspondsToClass :RoleDeclaration ;
+    map:correspondsToProperty :confidenceThreshold ;
+    map:sourceField "confidence_threshold" ;
+    map:sourceFile "schemas/role-declaration.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-009 a map:SchemaMapping ;
+    map:correspondsToClass :DecisionEnvelope ;
+    map:correspondsToProperty :confidence ;
+    map:sourceField "confidence" ;
+    map:sourceFile "schemas/decision-envelope.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-010 a map:SchemaMapping ;
+    map:correspondsToClass :DecisionEnvelope ;
+    map:correspondsToProperty :escalatedTo ;
+    map:sourceField "escalation" ;
+    map:sourceFile "schemas/decision-envelope.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-011 a map:SchemaMapping ;
+    map:correspondsToClass :AuditRecord ;
+    map:correspondsToProperty :auditId ;
+    map:sourceField "audit_id" ;
+    map:sourceFile "schemas/audit-record.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-012 a map:SchemaMapping ;
+    map:correspondsToClass :AuditRecord ;
+    map:correspondsToProperty :taskId ;
+    map:sourceField "task_id" ;
+    map:sourceFile "schemas/audit-record.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-013 a map:SchemaMapping ;
+    map:correspondsToClass :AuditRecord ;
+    map:correspondsToProperty :timestamp ;
+    map:sourceField "timestamp" ;
+    map:sourceFile "schemas/audit-record.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-014 a map:SchemaMapping ;
+    map:correspondsToClass :AuditRecord ;
+    map:correspondsToProperty :finalStatus ;
+    map:sourceField "final_status" ;
+    map:sourceFile "schemas/audit-record.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-015 a map:SchemaMapping ;
+    map:correspondsToClass :AuditRecord ;
+    map:correspondsToProperty :events ;
+    map:sourceField "events" ;
+    map:sourceFile "schemas/audit-record.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-016 a map:SchemaMapping ;
+    map:correspondsToClass :AuditEvent ;
+    map:correspondsToProperty :eventType ;
+    map:sourceField "events[].type" ;
+    map:sourceFile "schemas/audit-record.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-017 a map:SchemaMapping ;
+    map:correspondsToClass :AuditEvent ;
+    map:correspondsToProperty :eventSource ;
+    map:sourceField "events[].source" ;
+    map:sourceFile "schemas/audit-record.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-018 a map:SchemaMapping ;
+    map:correspondsToClass :ModelIdentity ;
+    map:correspondsToProperty :modelName ;
+    map:sourceField "model_name" ;
+    map:sourceFile "schemas/model-identity.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-019 a map:SchemaMapping ;
+    map:correspondsToClass :ModelIdentity ;
+    map:correspondsToProperty :version ;
+    map:sourceField "version" ;
+    map:sourceFile "schemas/model-identity.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:mapping-020 a map:SchemaMapping ;
+    map:correspondsToClass :Execution ;
+    map:correspondsToProperty :humanApproval ;
+    map:sourceField "target_action_id" ;
+    map:sourceFile "schemas/approval-record.yaml" ;
+    map:sourceFormat "yaml" .
+
+map:sourceField a owl:AnnotationProperty ;
+    rdfs:label "source field"@en .
+
+map:sourceFile a owl:AnnotationProperty ;
+    rdfs:label "source file"@en .
+
+map:sourceFormat a owl:AnnotationProperty ;
+    rdfs:label "source format"@en .
+
+map:SchemaMapping a owl:Class ;
+    rdfs:label "Schema Mapping"@en ;
+    rdfs:comment "Correspondence between one field of a schemas/*.yaml exchange format and one property/class of ontology/hacp-core.ttl."@en .
+

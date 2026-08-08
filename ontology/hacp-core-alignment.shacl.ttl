@@ -1,0 +1,29 @@
+@prefix : <http://nkllon.org/hacp#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+:VocabularyAlignmentShape a sh:NodeShape ;
+    rdfs:comment "Cross-checks shacl/hacp-core.ttl, shacl/hacp-level1.ttl, and shacl/hacp-level2.ttl (this repo's deployed compliance shapes) against ontology/hacp-core.ttl. Fails if any sh:targetClass or sh:path used by a compliance shape is not declared as a class or property in the core vocabulary. Run against the union of all four files."@en ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "Compliance shape references undeclared term: {?undeclared}" ;
+            sh:select """
+PREFIX sh: <http://www.w3.org/ns/shacl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT $this ?undeclared WHERE {
+    {
+        ?shape sh:targetClass ?undeclared .
+    } UNION {
+        ?shape sh:property ?pshape .
+        ?pshape sh:path ?undeclared .
+    }
+    FILTER NOT EXISTS { ?undeclared a rdfs:Class }
+    FILTER NOT EXISTS { ?undeclared a owl:Class }
+    FILTER NOT EXISTS { ?undeclared a rdf:Property }
+    FILTER NOT EXISTS { ?undeclared a owl:ObjectProperty }
+    FILTER NOT EXISTS { ?undeclared a owl:DatatypeProperty }
+}
+""" ] ;
+    sh:targetNode : .
+
