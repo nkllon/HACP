@@ -1,0 +1,30 @@
+@prefix map: <http://nkllon.org/hacp/mapping#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+map:SchemaMappingShape a sh:NodeShape ;
+    sh:message "Every schema mapping must declare source file, source field, and a target property that is declared in hacp-core.ttl." ;
+    sh:property [ sh:message "sourceFile is required." ;
+            sh:minCount 1 ;
+            sh:path map:sourceFile ],
+        [ sh:message "correspondsToProperty is required and must reference a declared HACP property." ;
+            sh:minCount 1 ;
+            sh:path map:correspondsToProperty ],
+        [ sh:message "sourceField is required." ;
+            sh:minCount 1 ;
+            sh:path map:sourceField ] ;
+    sh:sparql [ a sh:SPARQLConstraint ;
+            sh:message "correspondsToProperty target is not declared as a property in hacp-core.ttl: {?target}" ;
+            sh:select """
+PREFIX map: <http://nkllon.org/hacp/mapping#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT $this ?target WHERE {
+    $this map:correspondsToProperty ?target .
+    FILTER NOT EXISTS { ?target a rdf:Property }
+    FILTER NOT EXISTS { ?target a owl:ObjectProperty }
+    FILTER NOT EXISTS { ?target a owl:DatatypeProperty }
+}
+""" ] ;
+    sh:targetClass map:SchemaMapping .
+

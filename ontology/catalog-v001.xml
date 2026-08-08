@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <!-- Deterministic, offline-safe import resolution for HACP core.
+       Consumers should resolve http://nkllon.org/hacp# via a pinned git
+       checkout of this repository (this file) or a digest-verified fetch
+       of ontology/hacp-core.ttl, not a live dereference of the ontology
+       IRI at validation/CI time. -->
+  <uri name="http://nkllon.org/hacp#" uri="hacp-core.ttl"/>
+  <uri name="http://nkllon.org/hacp/0.1.0#" uri="hacp-core.ttl"/>
+</catalog>

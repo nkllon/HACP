@@ -1,0 +1,327 @@
+@prefix : <http://nkllon.org/hacp#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+: a owl:Ontology ;
+    rdfs:label "HACP Core Vocabulary"@en ;
+    dcterms:description "Versioning policy: semantic versioning aligned to HACP.md's own draft version. MAJOR = a class/property is removed or its meaning changes incompatibly. MINOR = additive, non-breaking terms. PATCH = label/comment/documentation changes only. The unversioned ontology IRI (http://nkllon.org/hacp#) always denotes the current release; owl:versionIRI pins an exact snapshot per release and MUST NOT be reused across releases. Import resolution for offline/CI use is via ontology/catalog-v001.xml (OASIS XML Catalog, pinned to a git checkout) or a digest-verified fetch of this exact file -- consumers should not depend on live dereference of the ontology IRI at validation time. See ontology/README.md."@en ;
+    dcterms:title "HACP Core Vocabulary"@en ;
+    rdfs:comment "Canonical RDFS/OWL vocabulary for the Human-AI Collaboration Protocol (HACP) v0.1. Scope is strictly limited to classes, properties, axioms, and genuinely normative individuals drawn from HACP.md and this repository's own deployed SHACL shapes (shacl/hacp-core.ttl, shacl/hacp-level1.ttl, shacl/hacp-level2.ttl). Patent-candidate instances, claims, claim elements, risks, novelty hypotheses, prior-art references, technical embodiments, and filing metadata are explicitly out of scope and belong to energration/patents instead, which specializes (owl:imports) this vocabulary rather than redefining it."@en ;
+    owl:versionIRI <http://nkllon.org/hacp/0.1.0#> ;
+    owl:versionInfo "0.1.0" .
+
+:AILedHumanMonitored a :CollaborationMode ;
+    rdfs:label "AI-Led, Human-Monitored"@en ;
+    rdfs:comment "Default handling mode 'AI-Led, Human-Monitored' per HACP.md section 3.1's task classification decision matrix."@en .
+
+:HumanLedAIAssisted a :CollaborationMode ;
+    rdfs:label "Human-Led, AI-Assisted"@en ;
+    rdfs:comment "Default handling mode 'Human-Led, AI-Assisted' per HACP.md section 3.1's task classification decision matrix."@en .
+
+:HumanLedAIEnhanced a :CollaborationMode ;
+    rdfs:label "Human-Led, AI-Enhanced"@en ;
+    rdfs:comment "Default handling mode 'Human-Led, AI-Enhanced' per HACP.md section 3.1's task classification decision matrix."@en .
+
+:RequiresExplicitApproval a :CollaborationMode ;
+    rdfs:label "Requires explicit approval"@en ;
+    rdfs:comment "Default handling mode 'Requires explicit approval' per HACP.md section 3.1's task classification decision matrix."@en .
+
+:agentId a owl:DatatypeProperty ;
+    rdfs:label "agent ID"@en ;
+    rdfs:comment "Unique identifier of the declaring agent."@en ;
+    rdfs:domain :RoleDeclaration ;
+    rdfs:range xsd:string .
+
+:auditId a owl:DatatypeProperty ;
+    rdfs:label "audit ID"@en ;
+    rdfs:comment "Unique identifier for this audit record."@en ;
+    rdfs:domain :AuditRecord ;
+    rdfs:range xsd:string .
+
+:blocksAction a owl:ObjectProperty ;
+    rdfs:label "blocks action"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "Identifies an action blocked by a failed protocol gate."@en ;
+    rdfs:domain :EnforcementPoint ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:collaborationModeUsed a owl:ObjectProperty ;
+    rdfs:label "collaboration mode used"@en ;
+    rdfs:comment "The collaboration mode assigned to a task per the section-3.1 decision matrix."@en ;
+    rdfs:domain :TaskManifest ;
+    rdfs:range :CollaborationMode .
+
+:complexity a owl:DatatypeProperty ;
+    rdfs:label "complexity"@en ;
+    rdfs:comment "Task complexity: Low or High."@en ;
+    rdfs:domain :TaskManifest ;
+    rdfs:range xsd:string .
+
+:confidence a owl:DatatypeProperty ;
+    rdfs:label "confidence"@en ;
+    rdfs:comment "AI confidence score in [0.0, 1.0]."@en ;
+    rdfs:domain :DecisionEnvelope ;
+    rdfs:range xsd:decimal .
+
+:confidenceThreshold a owl:DatatypeProperty ;
+    rdfs:label "confidence threshold"@en ;
+    rdfs:comment "Minimum confidence below which escalation is required. Used on both RoleDeclaration and, dynamically, DecisionEnvelope instances -- domain intentionally left open."@en ;
+    rdfs:range xsd:string .
+
+:escalatedTo a owl:ObjectProperty ;
+    rdfs:label "escalated to"@en ;
+    rdfs:comment "The human an execution or decision was escalated to."@en ;
+    rdfs:domain :DecisionEnvelope .
+
+:escalatesAction a owl:ObjectProperty ;
+    rdfs:label "escalates action"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "Identifies an action escalated to a human role."@en ;
+    rdfs:domain :EnforcementPoint ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:eventSource a owl:DatatypeProperty ;
+    rdfs:label "event source"@en ;
+    rdfs:comment "Agent or human ID that generated the audit event."@en ;
+    rdfs:domain :AuditEvent ;
+    rdfs:range xsd:string .
+
+:eventType a owl:DatatypeProperty ;
+    rdfs:label "event type"@en ;
+    rdfs:comment "Audit event type: Proposal, Decision, Action, Escalation, Approval, or Refusal."@en ;
+    rdfs:domain :AuditEvent ;
+    rdfs:range xsd:string .
+
+:events a owl:ObjectProperty ;
+    rdfs:label "events"@en ;
+    rdfs:comment "Ordered events retained in an audit record."@en ;
+    rdfs:domain :AuditRecord ;
+    rdfs:range :AuditEvent .
+
+:finalStatus a owl:DatatypeProperty ;
+    rdfs:label "final status"@en ;
+    rdfs:comment "Terminal status of a collaboration: Completed, Aborted, Rejected, or Failed."@en ;
+    rdfs:domain :AuditRecord ;
+    rdfs:range xsd:string .
+
+:hasAuditEvidence a owl:ObjectProperty ;
+    rdfs:label "has audit evidence"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "Relates a protocol embodiment or action to required audit evidence."@en ;
+    rdfs:range :AuditEvidence ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:hasAuthorityBoundary a owl:ObjectProperty ;
+    rdfs:label "has authority boundary"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "Relates a protocol embodiment or task envelope to an authority boundary."@en ;
+    rdfs:range :AuthorityBoundary ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:hasDelegationBoundary a owl:ObjectProperty ;
+    rdfs:label "has delegation boundary"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "Relates a protocol embodiment to a human-AI delegation boundary."@en ;
+    rdfs:range :DelegationBoundary ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:hasEnforcementPoint a owl:ObjectProperty ;
+    rdfs:label "has enforcement point"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "Relates a protocol embodiment or validation loop to an execution gate."@en ;
+    rdfs:range :EnforcementPoint ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:hasProtocolRole a owl:ObjectProperty ;
+    rdfs:label "has protocol role"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "Relates a protocol embodiment to a participant role."@en ;
+    rdfs:range :ProtocolRole ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:hasTaskEnvelope a owl:ObjectProperty ;
+    rdfs:label "has task envelope"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "Relates a protocol embodiment to a task envelope validated before execution."@en ;
+    rdfs:range :TaskEnvelope ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:hasValidationLoop a owl:ObjectProperty ;
+    rdfs:label "has validation loop"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "Relates a protocol embodiment to a validation loop."@en ;
+    rdfs:range :ValidationLoop ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:humanApproval a owl:DatatypeProperty ;
+    rdfs:label "human approval"@en ;
+    rdfs:comment "Reference to a recorded human approval for an irreversible execution."@en ;
+    rdfs:domain :Execution ;
+    rdfs:range xsd:string .
+
+:importance a owl:DatatypeProperty ;
+    rdfs:label "importance"@en ;
+    rdfs:comment "Task importance: Low or High."@en ;
+    rdfs:domain :TaskManifest ;
+    rdfs:range xsd:string .
+
+:modelName a owl:DatatypeProperty ;
+    rdfs:label "model name"@en ;
+    rdfs:comment "Human-readable model name."@en ;
+    rdfs:domain :ModelIdentity ;
+    rdfs:range xsd:string .
+
+:operator a owl:DatatypeProperty ;
+    rdfs:label "operator"@en ;
+    rdfs:comment "Person initiating the task."@en ;
+    rdfs:domain :TaskManifest ;
+    rdfs:range xsd:string .
+
+:owner a owl:DatatypeProperty ;
+    rdfs:label "owner"@en ;
+    rdfs:comment "Human ID responsible for the task."@en ;
+    rdfs:domain :TaskManifest ;
+    rdfs:range xsd:string .
+
+:permitsAction a owl:ObjectProperty ;
+    rdfs:label "permits action"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "Identifies an action permitted by a boundary or enforcement point."@en ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:recordsDecision a owl:ObjectProperty ;
+    rdfs:label "records decision"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "Links audit evidence to the protocol decision it records."@en ;
+    rdfs:domain :AuditEvidence ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:requiresProtocolRole a owl:ObjectProperty ;
+    rdfs:label "requires protocol role"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "Identifies the role required to perform or approve an action."@en ;
+    rdfs:range :ProtocolRole ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:reversibility a owl:DatatypeProperty ;
+    rdfs:label "reversibility"@en ;
+    rdfs:comment "Task/execution reversibility: Reversible or Irreversible."@en ;
+    rdfs:range xsd:string .
+
+:roles a owl:DatatypeProperty ;
+    rdfs:label "roles"@en ;
+    rdfs:comment "Declared role(s) held by an agent: Proposer, Executor, Critic, or Observer."@en ;
+    rdfs:domain :RoleDeclaration ;
+    rdfs:range xsd:string .
+
+:taskId a owl:DatatypeProperty ;
+    rdfs:label "task ID"@en ;
+    rdfs:comment "Reference to the Task Manifest this audit record covers."@en ;
+    rdfs:domain :AuditRecord ;
+    rdfs:range xsd:string .
+
+:timestamp a owl:DatatypeProperty ;
+    rdfs:label "timestamp"@en ;
+    rdfs:comment "ISO 8601 timestamp."@en ;
+    rdfs:range xsd:dateTime .
+
+:version a owl:DatatypeProperty ;
+    rdfs:label "version"@en ;
+    rdfs:comment "Model version string or date."@en ;
+    rdfs:domain :ModelIdentity ;
+    rdfs:range xsd:string .
+
+:DelegationBoundary a owl:Class ;
+    rdfs:label "Delegation Boundary"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "A constraint separating delegable AI execution from human-retained decision authority."@en ;
+    rdfs:isDefinedBy "Class/property extracted from energration/patents active/hacp-protocol/hacp.ttl (git blob 2cbbc4dcaf2d2bc8059af66a3f6b1bf52596589e, commit 93f938d06cca6c2451a7212f0c0845eed71a7afc). Label and comment preserved verbatim from the source triple; the class/property itself was judged generic to the protocol rather than specific to the patent-candidate narrative. No instances, claims, claim elements, risks, novelty hypotheses, prior-art references, technical embodiments, or filing metadata were extracted -- those remain in the patent repository as specializations of this vocabulary, not as part of it."@en ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:ValidationLoop a owl:Class ;
+    rdfs:label "Validation Loop"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "A machine-checkable loop that evaluates role, task, confidence, authority, and evidence before action."@en ;
+    rdfs:isDefinedBy "Class/property extracted from energration/patents active/hacp-protocol/hacp.ttl (git blob 2cbbc4dcaf2d2bc8059af66a3f6b1bf52596589e, commit 93f938d06cca6c2451a7212f0c0845eed71a7afc). Label and comment preserved verbatim from the source triple; the class/property itself was judged generic to the protocol rather than specific to the patent-candidate narrative. No instances, claims, claim elements, risks, novelty hypotheses, prior-art references, technical embodiments, or filing metadata were extracted -- those remain in the patent repository as specializations of this vocabulary, not as part of it."@en ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:AuthorityBoundary a owl:Class ;
+    rdfs:label "Authority Boundary"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "A modeled boundary that defines which role may approve, execute, escalate, or refuse an action."@en ;
+    rdfs:isDefinedBy "Class/property extracted from energration/patents active/hacp-protocol/hacp.ttl (git blob 2cbbc4dcaf2d2bc8059af66a3f6b1bf52596589e, commit 93f938d06cca6c2451a7212f0c0845eed71a7afc). Label and comment preserved verbatim from the source triple; the class/property itself was judged generic to the protocol rather than specific to the patent-candidate narrative. No instances, claims, claim elements, risks, novelty hypotheses, prior-art references, technical embodiments, or filing metadata were extracted -- those remain in the patent repository as specializations of this vocabulary, not as part of it."@en ;
+    rdfs:seeAlso :Execution ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:DecisionEnvelope a owl:Class ;
+    rdfs:label "Decision Envelope"@en ;
+    rdfs:comment "A role-scoped proposal, execution, or evaluation record carrying a confidence score and escalation condition, per HACP.md sections 4 and 6 and schemas/decision-envelope.yaml."@en .
+
+:ModelIdentity a owl:Class ;
+    rdfs:label "Model Identity"@en ;
+    rdfs:comment "Identification of the AI system involved in a task, including at minimum model name and version, per HACP.md section 7 and schemas/model-identity.yaml."@en .
+
+:TaskEnvelope a owl:Class ;
+    rdfs:label "Task Envelope"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "A structured execution envelope containing role declaration, task class, confidence, authority boundary, validation result, and audit target."@en ;
+    rdfs:isDefinedBy "Class/property extracted from energration/patents active/hacp-protocol/hacp.ttl (git blob 2cbbc4dcaf2d2bc8059af66a3f6b1bf52596589e, commit 93f938d06cca6c2451a7212f0c0845eed71a7afc). Label and comment preserved verbatim from the source triple; the class/property itself was judged generic to the protocol rather than specific to the patent-candidate narrative. No instances, claims, claim elements, risks, novelty hypotheses, prior-art references, technical embodiments, or filing metadata were extracted -- those remain in the patent repository as specializations of this vocabulary, not as part of it."@en ;
+    rdfs:seeAlso :TaskManifest ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:AuditEvent a owl:Class ;
+    rdfs:label "Audit Event"@en ;
+    rdfs:comment "A single timestamped, sourced event (proposal, decision, action, escalation, approval, or refusal) within an Audit Record, per schemas/audit-record.yaml's events[] structure."@en .
+
+:AuditEvidence a owl:Class ;
+    rdfs:label "Audit Evidence"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "A record proving the role declaration, validation result, boundary decision, and action outcome."@en ;
+    rdfs:isDefinedBy "Class/property extracted from energration/patents active/hacp-protocol/hacp.ttl (git blob 2cbbc4dcaf2d2bc8059af66a3f6b1bf52596589e, commit 93f938d06cca6c2451a7212f0c0845eed71a7afc). Label and comment preserved verbatim from the source triple; the class/property itself was judged generic to the protocol rather than specific to the patent-candidate narrative. No instances, claims, claim elements, risks, novelty hypotheses, prior-art references, technical embodiments, or filing metadata were extracted -- those remain in the patent repository as specializations of this vocabulary, not as part of it."@en ;
+    rdfs:seeAlso :AuditRecord ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:Execution a owl:Class ;
+    rdfs:label "Execution"@en ;
+    rdfs:comment "A proposed or performed action subject to authority-boundary enforcement; irreversible execution requires recorded human approval, per HACP.md section 5."@en ;
+    rdfs:seeAlso :AuthorityBoundary,
+        :EnforcementPoint .
+
+:ProtocolRole a owl:Class ;
+    rdfs:label "Protocol Role"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "A participant role with explicit authority in a human-AI workflow."@en ;
+    rdfs:isDefinedBy "Class/property extracted from energration/patents active/hacp-protocol/hacp.ttl (git blob 2cbbc4dcaf2d2bc8059af66a3f6b1bf52596589e, commit 93f938d06cca6c2451a7212f0c0845eed71a7afc). Label and comment preserved verbatim from the source triple; the class/property itself was judged generic to the protocol rather than specific to the patent-candidate narrative. No instances, claims, claim elements, risks, novelty hypotheses, prior-art references, technical embodiments, or filing metadata were extracted -- those remain in the patent repository as specializations of this vocabulary, not as part of it."@en ;
+    rdfs:seeAlso :RoleDeclaration ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:RoleDeclaration a owl:Class ;
+    rdfs:label "Role Declaration"@en ;
+    rdfs:comment "An explicit declaration of an agent's identifier, assigned roles, and confidence threshold, per HACP.md section 4 and schemas/role-declaration.yaml."@en ;
+    rdfs:seeAlso :ProtocolRole .
+
+:EnforcementPoint a owl:Class ;
+    rdfs:label "Enforcement Point"@en ;
+    dcterms:source <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> ;
+    rdfs:comment "A workflow point at which the protocol permits, escalates, or blocks execution."@en ;
+    rdfs:isDefinedBy "Class/property extracted from energration/patents active/hacp-protocol/hacp.ttl (git blob 2cbbc4dcaf2d2bc8059af66a3f6b1bf52596589e, commit 93f938d06cca6c2451a7212f0c0845eed71a7afc). Label and comment preserved verbatim from the source triple; the class/property itself was judged generic to the protocol rather than specific to the patent-candidate narrative. No instances, claims, claim elements, risks, novelty hypotheses, prior-art references, technical embodiments, or filing metadata were extracted -- those remain in the patent repository as specializations of this vocabulary, not as part of it."@en ;
+    rdfs:seeAlso :Execution ;
+    prov:wasDerivedFrom <https://github.com/energration/patents/blob/93f938d06cca6c2451a7212f0c0845eed71a7afc/active/hacp-protocol/hacp.ttl> .
+
+:AuditRecord a owl:Class ;
+    rdfs:label "Audit Record"@en ;
+    rdfs:comment "A comprehensive, retained record of a collaboration's task reference, timestamped events, and final status, per HACP.md section 7 and schemas/audit-record.yaml."@en ;
+    rdfs:seeAlso :AuditEvidence .
+
+:CollaborationMode a owl:Class ;
+    rdfs:label "Collaboration Mode"@en ;
+    rdfs:comment "One of the four default handling modes assigned by HACP.md section 3.1's task-classification decision matrix."@en .
+
+:TaskManifest a owl:Class ;
+    rdfs:label "Task Manifest"@en ;
+    rdfs:comment "A declared unit of work classified by importance, complexity, and reversibility, with an explicit human owner, per HACP.md section 3 and schemas/task-manifest.yaml."@en ;
+    rdfs:seeAlso :TaskEnvelope .
+
